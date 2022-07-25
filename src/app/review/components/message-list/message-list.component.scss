@@ -1,0 +1,21 @@
+%common-dot {
+  display:inline-block;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin-right:1rem;
+  box-shadow: inset 0px 2px 0px rgba(0,0,0,.5);
+}
+
+.dot-new {
+  background-color: var(--blue);
+  @extend %common-dot;
+}
+.dot-rejected {
+  background-color: var(--red);
+  @extend %common-dot;
+}
+.dot-accepted {
+  background-color: var(--dark-green);
+  @extend %common-dot;
+}

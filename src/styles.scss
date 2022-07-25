@@ -1,0 +1,256 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --black: #000000;
+  --dark-blue: #1D2B53;
+  --dark-purple: #7E2553;
+  --dark-green: #008751;
+  --brown: #AB5236;
+  --dark-grey: #5F574F;
+  --light-grey: #C2C3C7;
+  --white: #FFF1E8;
+  --red: #FF004D;
+  --orange: #FFA300;
+  --yellow: #FFEC27;
+  --green: #00E436;
+  --blue: #29ADFF;
+  --lavender: #83769C;
+  --pink: #FF77A8;
+  --light-peach: #FFCCAA;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: #333;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+* {
+  padding: 0rem;
+  margin: 0rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.pl-4 {
+  padding-left: 4rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.pb-1 {
+  padding-bottom: 1rem;
+}
+
+.text-dark {
+  color: #111;
+}
+
+.text-light {
+  background-color: #eee;
+}
+
+.border-bottom {
+  border-bottom: 1px dashed rgba(0, 0, 0, .25);
+}
+
+input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #111;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover:not(.active) {
+  box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.activerow {
+  /*
+  box-shadow: inset 150px 0px 50px rgba(255, 255, 255, 0.75);
+  */
+  font-weight: bold;
+}
+
+.loading-bar {
+  display:flex;
+  height: 0.75rem;
+  width: 100%;
+  overflow: hidden;
+
+  @keyframes progress-animation {
+    0% {width: 0%;background-color: rgba(0,0,0,.3);}
+    15% {width: 75%;background-color: rgba(0,0,0,.2);}
+    30% {width: 90%;background-color: rgba(0,0,0,.1);}
+    100% {width: 95%;background-color: rgba(0,0,0,.05);}
+  }
+
+  &.loading-bar-active {
+    width: 95%;
+    background-color: rgba(0,0,0,0.2);
+    animation: progress-animation 5s ease-in-out;
+  }
+
+  @keyframes progress-animation-2 {
+    0% {width: 0%;background-color: rgba(0,0,0,.3);}
+    35% {width: 80%;background-color: rgba(0,0,0,.2);}
+    55% {width: 90%;background-color: rgba(0,0,0,.1);}
+    100% {width: 95%;background-color: rgba(0,0,0,.05);}
+  }
+
+  &.loading-bar-active-2 {
+    width: 95%;
+    background-color: rgba(0,0,0,0.2);
+    animation: progress-animation-2 5s ease-in-out;
+  }
+}
+
+
+.bg-black {
+  background-color: var(--black);
+}
+
+.bg-dark-blue {
+  background-color: var(--dark-blue);
+}
+
+.bg-dark-purple {
+  background-color: var(--dark-purple);
+}
+
+.bg-dark-green {
+  background-color: var(--dark-green);
+}
+
+.bg-brown {
+  background-color: var(--brown);
+}
+
+.bg-dark-grey {
+  background-color: var(--dark-grey);
+}
+
+.bg-light-grey {
+  background-color: var(--light-grey);
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+
+.bg-red {
+  background-color: var(--red);
+}
+
+.bg-orange {
+  background-color: var(--orange);
+}
+
+.bg-yellow {
+  background-color: var(--yellow);
+}
+
+.bg-green {
+  background-color: var(--green);
+}
+
+.bg-blue {
+  background-color: var(--blue);
+}
+
+.bg-lavender {
+  background-color: var(--lavender);
+}
+
+.bg-pink {
+  background-color: var(--pink);
+}
+
+.bg-light-peach {
+  background-color: var(--light-peach);
+}
+
+.fg-black {
+  color: var(--black);
+}
+
+.fg-dark-blue {
+  color: var(--dark-blue);
+}
+
+.fg-dark-purple {
+  color: var(--dark-purple);
+}
+
+.fg-dark-green {
+  color: var(--dark-green);
+}
+
+.fg-brown {
+  color: var(--brown);
+}
+
+.fg-dark-grey {
+  color: var(--dark-grey);
+}
+
+.fg-light-grey {
+  color: var(--light-grey);
+}
+
+.fg-white {
+  color: var(--white);
+}
+
+.fg-red {
+  color: var(--red);
+}
+
+.fg-orange {
+  color: var(--orange);
+}
+
+.fg-yellow {
+  color: var(--yellow);
+}
+
+.fg-green {
+  color: var(--green);
+}
+
+.fg-blue {
+  color: var(--blue);
+}
+
+.fg-lavender {
+  color: var(--lavender);
+}
+
+.fg-pink {
+  color: var(--pink);
+}
+
+.fg-light-peach {
+  color: var(--light-peach);
+}

@@ -1,0 +1,17 @@
+<div class="bg-light-grey">
+  <div class="loading-bar" [ngClass]="{'loading-bar-active-2': loading$ | async}"></div>
+  <h3 class="p-1 border-bottom">Missions</h3>
+  <ng-container *ngIf="missions$ | async as missions;else empty_list">
+    <div class="p-1 border-bottom clickable"
+    [class.activerow]="mission.id === (selectedMissionId$ |async)"
+    (click)="itemClicked(mission)"
+    *ngFor="let mission of missions">
+    <span class="dot-new"></span>🔥 {{mission.title}} ({{mission.id}})
+    </div>
+  </ng-container>
+  <ng-template #empty_list>
+    <div class="p-1 border-bottom">
+      ** no items **
+    </div>
+  </ng-template>
+</div>

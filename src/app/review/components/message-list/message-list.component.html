@@ -1,0 +1,22 @@
+<div class="bg-light-grey">
+  <div class="loading-bar" [ngClass]="{'loading-bar-active': loading$ | async}"></div>
+  <h3 class="p-1 border-bottom">Messages</h3>
+  <div class="p-1 pl-4 border-bottom">
+    <button class="mr-1" [disabled]="setAsNewDisabled$ | async" (click)="action(MessageStatus.New)">📒 Set as New</button>
+    <button class="mr-1" [disabled]="setAsAcceptedDisabled$ | async" (click)="action(MessageStatus.Accepted)">📒 Set as Accepted</button>
+    <button class="mr-1" [disabled]="setAsRejectedDisabled$ | async" (click)="action(MessageStatus.Rejected)">📒 Set as Rejected</button>
+  </div>
+  <ng-container *ngIf="messages$ | async as messages;else empty_list">
+    <div class="p-1 border-bottom clickable"
+    [class.activerow]="message.selected"
+    (click)="itemClicked(message)"
+    *ngFor="let message of messages">
+    <span class="dot-new"></span>({{message.status}}) : 🗨️ {{message.title}} ({{message.id}})
+    </div>
+  </ng-container>
+  <ng-template #empty_list>
+    <div class="p-1 border-bottom">
+      ** no items **
+    </div>
+  </ng-template>
+</div>

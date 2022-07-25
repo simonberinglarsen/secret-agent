@@ -1,0 +1,42 @@
+<div class="bg-dark-green">
+  <div class="loading-bar" [ngClass]="{'loading-bar-active': loading$ | async}"></div>
+  <h3 class="p-1 border-bottom">Mission details</h3>
+  <ng-container *ngIf="missionDetails$ | async as md;else empty_list">
+    <div class="p-1">
+      <div class="info">
+        <div class="group">
+          <h4>id</h4>
+          <div>{{md.id}}</div>
+        </div>
+        <div class="group">
+          <h4>mission-id</h4>
+          <div>{{md.missionId}}</div>
+        </div>
+        <div class="group">
+          <h4>agent</h4>
+          <div>{{md.agent}}</div>
+        </div>
+        <div class="group">
+          <h4>dangerRate</h4>
+          <div>{{md.dangerRate}}</div>
+        </div>
+        <div class="group">
+          <h4>potential</h4>
+          <div>{{md.potential}}</div>
+        </div>
+        <div class="group">
+          <h4>expectedCompletionDate</h4>
+          <div>{{md.expectedCompletionDate}}</div>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #empty_list>
+    <div class="p-1">
+      <div class="info">
+        no data
+      </div>
+    </div>
+  </ng-template>
+</div>

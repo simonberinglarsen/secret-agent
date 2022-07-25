@@ -1,0 +1,16 @@
+.main {
+  display:flex;
+  flex-direction:row;
+}
+
+.left {
+  min-width: 20rem;
+}
+
+.center {
+  flex-grow: 1;
+}
+
+.right {
+  min-width: 20rem;
+}

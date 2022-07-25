@@ -1,0 +1,14 @@
+<div class="bg-orange">
+  <div class="loading-bar" [ngClass]="{'loading-bar-active': loading$ | async}"></div>
+  <div class="p-1 border-bottom loading">
+    <h3 class="pb-1">Country</h3>
+    <input type="text">
+  </div>
+  <div>
+    <ul>
+      <li class="p-1 border-bottom clickable" [class.activerow]="country.id === (selectedCountryId$ | async)"
+        (click)="itemClicked(country)" *ngFor="let country of countries$ | async">🌎 {{country.name}} ({{country.id}})
+      </li>
+    </ul>
+  </div>
+</div>

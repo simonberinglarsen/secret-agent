@@ -1,0 +1,14 @@
+<div class="bg-lavender">
+  <div class="loading-bar" [ngClass]="{'loading-bar-active': loading$ | async}"></div>
+    <div class="p-1 border-bottom">
+    <h3 class="pb-1">City</h3>
+    <input type="text">
+  </div>
+  <div>
+    <ul>
+      <li class="p-1 border-bottom clickable" [class.activerow]="city.id === (selectedCityId$ | async)"
+      (click)="itemClicked(city)"  *ngFor="let city of cities$ | async">🏛️ {{city.name}} ({{city.id}})
+    </li>
+    </ul>
+  </div>
+</div>
