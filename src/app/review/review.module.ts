@@ -11,7 +11,7 @@ import { ReviewRoutingModule } from './review-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromReview from './reducers';
-import { CityListEffects, CountryListEffects } from './effects';
+import { CityListEffects, CountryListEffects, StatsListEffects } from './effects';
 import { MessageListEffects } from './effects/message-list.effects';
 import { MissionListEffects } from './effects/mission-list.effects';
 
@@ -34,6 +34,7 @@ import { MissionListEffects } from './effects/mission-list.effects';
       CityListEffects,
       MessageListEffects,
       MissionListEffects,
+      StatsListEffects,
     ]),
   ],
 })

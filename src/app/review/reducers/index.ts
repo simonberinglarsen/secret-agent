@@ -9,6 +9,7 @@ import * as fromCountry from './country.reducer';
 import * as fromCity from './city.reducer';
 import * as fromMessage from './message.reducer';
 import * as fromMission from './mission.reducer';
+import * as fromStats from './stats.reducer';
 import { Message } from '../models/message';
 export const reviewFeatureKey = 'review';
 
@@ -17,6 +18,7 @@ export interface ReviewState {
   [fromCity.citiesFeatureKey]: fromCity.State;
   [fromMessage.messagesFeatureKey]: fromMessage.State;
   [fromMission.missionsFeatureKey]: fromMission.State;
+  [fromStats.statsFeatureKey]: fromStats.State;
 }
 
 export interface State extends fromRoot.State {
@@ -30,17 +32,21 @@ export function reducers(state: ReviewState | undefined, action: Action) {
     [fromCity.citiesFeatureKey]: fromCity.reducer,
     [fromMessage.messagesFeatureKey]: fromMessage.reducer,
     [fromMission.missionsFeatureKey]: fromMission.reducer,
+    [fromStats.statsFeatureKey]: fromStats.reducer,
   })(state, action);
 }
 
 export const selectReviewState =
   createFeatureSelector<ReviewState>(reviewFeatureKey);
 
+export const selectStatsState = createSelector(
+  selectReviewState,
+  (state) => state.stats
+);
 export const selectCountryEntitiesState = createSelector(
   selectReviewState,
   (state) => state.countries
 );
-
 export const selectCityEntitiesState = createSelector(
   selectReviewState,
   (state) => state.cities
@@ -52,6 +58,14 @@ export const selectMessageEntitiesState = createSelector(
 export const selectMissionEntitiesState = createSelector(
   selectReviewState,
   (state) => state.missions
+);
+export const selectStats = createSelector(
+  selectStatsState,
+  fromStats.getStats
+);
+export const selectStatsLoading = createSelector(
+  selectStatsState,
+  fromStats.getLoading
 );
 export const selectSelectedCountryId = createSelector(
   selectCountryEntitiesState,

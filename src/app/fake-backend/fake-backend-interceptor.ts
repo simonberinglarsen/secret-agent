@@ -11,6 +11,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { database } from './database';
 import { MessageStatus } from '../review/models/message';
+import { Stats, StatusStats } from '../review/models/stats';
 
 const maxRequestTimeMs = 2000;
 const minRequestTimeMs = 500;
@@ -61,7 +62,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function handleGet(path: string[]) {
       if (path[0] === 'countries' && !path[1]) {
-        return countries();
+        return getCountries();
+      } else if (path[0] === 'stats' && !path[1]) {
+        return getStats();
       } else if (path[0] === 'cities' && path[1] === 'ids' && !path[2]) {
         return getCityIds();
       } else if (path[0].startsWith('cities') && !path[1]) {
@@ -105,10 +108,48 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     // route functions
-    function countries() {
+    function getCountries() {
       return ok(database.countries);
     }
 
+    function getStats() {
+      const cityStats: StatusStats[] = database.cities.map((city) => ({
+        id: city.id,
+        acceptedCount: database.messages.filter(
+          (m) => m.cityId === city.id && m.status === MessageStatus.Accepted
+        ).length,
+        newCount: database.messages.filter(
+          (m) => m.cityId === city.id && m.status === MessageStatus.New
+        ).length,
+        rejectedCount: database.messages.filter(
+          (m) => m.cityId === city.id && m.status === MessageStatus.Rejected
+        ).length,
+      }));
+      const countryStats: StatusStats[] = database.countries.map((country) => {
+        const countryCities = database.cities.filter(city => city.countryId === country.id);
+        const x = {
+          id: country.id,
+          acceptedCount: database.messages.filter(
+            (m) => countryCities.find(city => city.id === m.cityId) && m.status === MessageStatus.Accepted
+          ).length,
+          newCount: database.messages.filter(
+            (m) => countryCities.find(city => city.id === m.cityId) && m.status === MessageStatus.New
+          ).length,
+          rejectedCount: database.messages.filter(
+            (m) => countryCities.find(city => city.id === m.cityId) && m.status === MessageStatus.Rejected
+          ).length,
+        };
+        return x;
+      });
+
+      const stats: Stats = {
+        cityStats,
+        countryStats,
+      };
+      return ok(stats);
+    }
+
+    
     function postUpdateMessageStatus(ids: number[], status: MessageStatus) {
       let messages = database.messages.filter((m) => ids.includes(m.id));
       messages.forEach((m) => {

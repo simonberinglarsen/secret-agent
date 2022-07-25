@@ -6,7 +6,7 @@
     [class.activerow]="mission.id === (selectedMissionId$ |async)"
     (click)="itemClicked(mission)"
     *ngFor="let mission of missions">
-    <span class="dot-new"></span>🔥 {{mission.title}}
+    🔥 {{mission.title}}
     </div>
   </ng-container>
   <ng-template #empty_list>

@@ -6,8 +6,18 @@
   </div>
   <div>
     <ul>
-      <li class="p-1 border-bottom clickable" [class.activerow]="country.id === (selectedCountryId$ | async)"
-        (click)="itemClicked(country)" *ngFor="let country of countries$ | async">🌎 {{country.name}}
+      <li class="p-1 border-bottom clickable" [class.activerow]="country.country.id === (selectedCountryId$ | async)"
+        (click)="itemClicked(country.country)" *ngFor="let country of countries$ | async">
+        <div class="row">
+          <div>
+            🌎 {{country.country.name}}
+          </div>
+          <div class="ml-auto">
+            <span class="badge bg-blue">{{country.stat?.newCount}}</span>
+            <span class="badge bg-green">{{country.stat?.acceptedCount}}</span>
+            <span class="badge bg-pink">{{country.stat?.rejectedCount}}</span>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

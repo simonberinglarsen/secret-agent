@@ -11,7 +11,8 @@
     [class.activerow]="message.selected"
     (click)="itemClicked(message)"
     *ngFor="let message of messages">
-    <span class="dot-new"></span>({{message.status}}) : 🗨️ {{message.title}} ({{message.id}})
+    <span class="dot" [ngClass]="{'bg-blue': message.status == MessageStatus.New, 'bg-green': message.status == MessageStatus.Accepted, 'bg-pink': message.status == MessageStatus.Rejected}"></span>
+    🗨️ {{message.title}} (id={{message.id}}) ({{message.status}}) 
     </div>
   </ng-container>
   <ng-template #empty_list>

@@ -10,6 +10,7 @@ import {
   MissionApiActions,
   MissionListActions,
   ReviewPageActions,
+  StatsApiActions,
 } from '../actions';
 import { EMPTY, of } from 'rxjs';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
@@ -25,6 +26,7 @@ export class CityListEffects {
       ofType(CountryListActions.selectCountry),
       switchMap((action) => [
         CityApiActions.citiesRequestedByCountryId({ countryId: action.id }),
+        StatsApiActions.statsRequested()
       ])
     )
   );

@@ -7,6 +7,7 @@ import * as MessageListActions from './message-list.actions'
 import * as MessageApiActions from './message-api.actions'
 import * as MissionListActions from './mission-list.actions'
 import * as MissionApiActions from './mission-api.actions'
+import * as StatsApiActions from './stats-api.actions'
 
 export {
   ReviewPageActions,
@@ -18,4 +19,5 @@ export {
   MessageApiActions,
   MissionListActions,
   MissionApiActions,
+  StatsApiActions,
 };
