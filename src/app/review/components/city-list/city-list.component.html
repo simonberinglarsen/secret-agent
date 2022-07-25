@@ -7,7 +7,7 @@
   <div>
     <ul>
       <li class="p-1 border-bottom clickable" [class.activerow]="city.id === (selectedCityId$ | async)"
-      (click)="itemClicked(city)"  *ngFor="let city of cities$ | async">🏛️ {{city.name}} ({{city.id}})
+      (click)="itemClicked(city)"  *ngFor="let city of cities$ | async">🏛️ {{city.name}}
     </li>
     </ul>
   </div>
