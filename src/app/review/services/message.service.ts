@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Message, MessageDetails } from '../models/message';
+import { Message, MessageDetails, MessageStatus } from '../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +17,9 @@ export class MessageService {
     return this.http.get<MessageDetails>(
       `/messages/details?messageId=${messageId}`
     );
+  }
+
+  updateStatusByIds(ids: number[], status: MessageStatus): Observable<Message[]> {
+    return this.http.post<Message[]>(`/messages/status`, {ids, status});
   }
 }

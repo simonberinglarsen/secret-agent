@@ -7,15 +7,16 @@ import {
   MessageStatus,
 } from '../review/models/message';
 
-// array in local storage for registered users
-export const database: {
+interface IData {
   countries: Country[];
   cities: City[];
   missions: Mission[];
   messages: Message[];
   messageDetails: MessageDetails[];
   missionDetails: MissionDetails[];
-} = {
+}
+
+export const database: IData = {
   countries: [
     { id: 1, name: 'Denmark' },
     { id: 2, name: 'Sweden' },

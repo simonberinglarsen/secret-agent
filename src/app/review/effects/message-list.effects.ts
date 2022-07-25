@@ -73,17 +73,32 @@ export class MessageListEffects {
     )
   );
 
-  statusUpdatesCompleted$ = createEffect(() =>
+  statusUpdatesTransformed$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MessageListActions.setSelectedStatus),
       withLatestFrom(this.store.select(fromReview.selectSelectedMessages)),
       map(([action, messages]) =>
-        MessageApiActions.messagesUpdateSuccess({
-          messages: messages.map((m) => ({
-            id: m.id,
-            changes: { status: action.updatedStatus },
-          })),
+        MessageApiActions.messagesStatusUpdateRequest({
+          ids: messages.map(m => m.id),
+          status: action.updatedStatus,
         })
+      )
+    )
+  );
+
+  statusUpdatesCompleted$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MessageApiActions.messagesStatusUpdateRequest),
+      switchMap((action) =>
+        this.messageService.updateStatusByIds(action.ids, action.status).pipe(
+          map((messages) => MessageApiActions.messagesStatusUpdateSuccess({ messages: messages.map(m => ({
+            id: m.id,
+            changes: {...m}
+          })) })),
+          catchError((error) =>
+            of(MessageApiActions.messagesStatusUpdateFailure({ error }))
+          )
+        )
       )
     )
   );

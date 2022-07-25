@@ -53,16 +53,20 @@ export const reducer = createReducer(
    * the collection is to be sorted, the adapter will
    * sort each record upon entry into the sorted array.
    */
-  on(MessageApiActions.messagesSuccess, (state, { messages }) =>
-    adapter.setAll(messages, { ...state, loading: false })
-  ),
-  on(MessageApiActions.messagesUpdateSuccess, (state, { messages }) =>
-    adapter.updateMany(messages, { ...state, loading: false })
-  ),
   on(MessageApiActions.messagesRequestByCityId, (state) => ({
     ...state,
     loading: true,
   })),
+  on(MessageApiActions.messagesSuccess, (state, { messages }) =>
+    adapter.setAll(messages, { ...state, loading: false })
+  ),
+  on(MessageApiActions.messagesStatusUpdateRequest, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(MessageApiActions.messagesStatusUpdateSuccess, (state, { messages }) =>
+    adapter.updateMany(messages, { ...state, loading: false })
+  ),
   on(MessageListActions.toggleMessage, (state, { id }) => {
     const exists = state.selectedMessageIds.some((x) => x === id);
     if (exists) {

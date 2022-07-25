@@ -10,6 +10,7 @@ import {
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { database } from './database';
+import { MessageStatus } from '../review/models/message';
 
 const maxRequestTimeMs = 2000;
 const minRequestTimeMs = 500;
@@ -41,6 +42,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       if (method === 'GET') {
         return handleGet(path);
+      }
+      if (method === 'POST') {
+        return handlePost(path, request.body);
+      }
+      return next.handle(request);
+    }
+
+    function handlePost(path: string[], body: any) {
+      if (path[0] === 'messages' && path[1].startsWith('status') && !path[2]) {
+        return postUpdateMessageStatus(
+          <number[]>body.ids,
+          <MessageStatus>body.status
+        );
       }
       return next.handle(request);
     }
@@ -95,6 +109,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(database.countries);
     }
 
+    function postUpdateMessageStatus(ids: number[], status: MessageStatus) {
+      let messages = database.messages.filter((m) => ids.includes(m.id));
+      messages.forEach((m) => {
+        m.status = status;
+      });
+      return ok(messages);
+    }
+
     function getCitiesByCountry(countryId: number) {
       return ok(database.cities.filter((c) => c.countryId === countryId));
     }
@@ -122,7 +144,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     // helper functions
-    function ok(body?: any) {
+    function ok(o?: any) {
+      const text = JSON.stringify(o);
+      const body = JSON.parse(text);
       return of(new HttpResponse({ status: 200, body }));
     }
 
